@@ -22,7 +22,11 @@ public class ShopSlot : MonoBehaviour
         ItemImg.sprite = myItem.Item_Sprite;
         itemCost.text = myItem.Item_Cost.ToString();
     }
+  
+    public void Purchase()
+    {
+        Inventory.Instance.GetItem(myItem);
 
-
+    }
 
 }

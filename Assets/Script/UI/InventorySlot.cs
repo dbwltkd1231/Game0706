@@ -10,6 +10,9 @@ public class InventorySlot : MonoBehaviour
     TextMeshProUGUI ItemName;
     [SerializeField]
     Image ItemImg;
+    [SerializeField]
+    public Image FrameImg;
+
     Item myItem;
 
     public void getItem(Item newItem)
@@ -18,7 +21,14 @@ public class InventorySlot : MonoBehaviour
         ItemName.text = myItem.Item_Name;
         ItemImg.sprite = myItem.Item_Sprite;
     }
- 
+    public Item ReturnItem()
+    {
+        return myItem;
+    }
+    public void Select()
+    {
+        Inventory.Instance.SelectSlot(this);
 
+    }
 
 }

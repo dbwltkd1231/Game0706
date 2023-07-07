@@ -24,14 +24,15 @@ public enum ItemType
 {
     None,
     장비,
-    기타
+    악세서리
 }
 public enum ItemDetailType
 {
     상의=0,
     하의,
     모자,
-    Boots,
-    Earing,
-    Belt
+    벨트,
+    귀걸이,
+    반지,
+    팔찌
 }

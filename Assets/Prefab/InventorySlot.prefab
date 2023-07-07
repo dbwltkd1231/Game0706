@@ -369,10 +369,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3747870847627121084}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 660747150}
+        m_TargetAssemblyTypeName: InventorySlot, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -393,8 +393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84579e258e078bc4887b8b6c8e6831a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemName: {fileID: 0}
-  ItemImg: {fileID: 0}
+  ItemName: {fileID: 3747870847304171436}
+  ItemImg: {fileID: 3747870846777734130}
+  FrameImg: {fileID: 3747870846977171660}
 --- !u!1 &3747870847869863134
 GameObject:
   m_ObjectHideFlags: 0
