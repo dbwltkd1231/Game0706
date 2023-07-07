@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,8 @@ public class Inventory : MonoBehaviour
 
     [Header("인벤토리 콘텐트"),SerializeField]
     Transform Content;
+    [Header("강화 콘텐트"), SerializeField]
+    Starpos StarposContent;
     [Header("강화 버튼"), SerializeField]
     GameObject EnchantBttn;
     [Header("판매 버튼"), SerializeField]
@@ -36,14 +39,50 @@ public class Inventory : MonoBehaviour
     }
     public void SelectSlot(InventorySlot slot)
     {
-        SelectedSlot = slot;
-        ColorChange(slot.FrameImg);
-
-
-        SellBttn.SetActive(true);
-        if (SelectedSlot.ReturnItem().Item_Type==ItemType.장비)
+        UnityEngine.Color color = new Color32();
+        if (SelectedSlot==null)
         {
-            EnchantBttn.SetActive(true);
+            SelectedSlot = slot;
+            color = new Color32(255, 0, 135, 255);
+            slot.FrameImg.color = color;
+
+            SellBttn.SetActive(true);
+            if (SelectedSlot.ReturnItem().Item_Type == ItemType.장비)
+            {
+                EnchantBttn.SetActive(true);
+            }
+        }
+        else if (slot == SelectedSlot)
+        {
+             color = new Color32(255, 255, 255, 255);
+            SelectedSlot.FrameImg.color = color;
+            SelectedSlot = null;
+        }
+        else
+        {
+            color = new Color32(255, 255, 255, 255);
+            SelectedSlot.FrameImg.color = color;
+            SelectedSlot = slot;
+            color = new Color32(255, 0, 135, 255);
+            slot.FrameImg.color = color;
+
+            SellBttn.SetActive(true);
+            if (SelectedSlot.ReturnItem().Item_Type == ItemType.장비)
+            {
+                EnchantBttn.SetActive(true);
+            }
+        }
+        
+
+        
+    }
+    public void OpenStarpos()
+    {
+        if(SelectedSlot!=null)
+        {
+            StarposContent.gameObject.SetActive(true);
+            StarposContent.GetItem(SelectedSlot.ReturnItem());
+
         }
     }
     public void GetItem(Item item)
@@ -88,7 +127,6 @@ public class Inventory : MonoBehaviour
 
     void ColorChange(Image img)
     {
-        Color color = new Color32(255, 0, 135, 255);
-        img.color = color;
+       
     }
 }
