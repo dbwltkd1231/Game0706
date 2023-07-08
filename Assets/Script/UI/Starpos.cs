@@ -30,12 +30,17 @@ public class Starpos : MonoBehaviour
     int successrate;
     int ReqGold;
     bool Ing;
+    public void ExitStarpos()
+    {
+        Inventory.Instance.SelectedCurrentSlot.getItem(myitem);
+        myitem = null;
+    }
     public void GetItem(Item item)
     {
         myitem = item;
         ItemIcon.sprite = myitem.Item_Sprite;
         NameText.text = myitem.Item_Name;
-        CurrentStarposText.text = ": +" + myitem.Item_Starpos;
+        CurrentStarposText.text = "+" + myitem.Item_Starpos;
         ReqGold = (myitem.Item_Cost / 100 * (myitem.Item_Starpos + 1));
         ReqStarposGold.text = ReqGold.ToString();
 
@@ -79,7 +84,7 @@ public class Starpos : MonoBehaviour
         }
         else
         {
-            myitem.Item_Starpos = --myitem.Item_Starpos < 0 ? 0 : --myitem.Item_Starpos;
+            myitem.Item_Starpos = --myitem.Item_Starpos < 0 ? 0 : myitem.Item_Starpos;
         }
         
         GetItem(myitem);

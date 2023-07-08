@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
     public List<Item> InventoryItemList;
     public GameObject SlotPrefab;
-    public InventorySlot SelectedSlot;
+    public InventorySlot SelectedCurrentSlot;
 
 
     [Header("인벤토리 콘텐트"),SerializeField]
@@ -20,6 +21,9 @@ public class Inventory : MonoBehaviour
     GameObject EnchantBttn;
     [Header("판매 버튼"), SerializeField]
     GameObject SellBttn;
+
+
+    UnityEngine.Color color;
     Queue<GameObject> slotQueue;
 
     private void Awake()
@@ -39,64 +43,65 @@ public class Inventory : MonoBehaviour
     }
     public void SelectSlot(InventorySlot slot)
     {
-        UnityEngine.Color color = new Color32();
-        if (SelectedSlot==null)
+        color = new Color32();
+        CancelSelectSlot();
+
+        if(slot!= SelectedCurrentSlot)
         {
-            SelectedSlot = slot;
+            SelectedCurrentSlot = slot;
             color = new Color32(255, 0, 135, 255);
             slot.FrameImg.color = color;
 
+
+
             SellBttn.SetActive(true);
-            if (SelectedSlot.ReturnItem().Item_Type == ItemType.장비)
+            if (SelectedCurrentSlot.ReturnItem().Item_Type == ItemType.장비)
             {
                 EnchantBttn.SetActive(true);
             }
-        }
-        else if (slot == SelectedSlot)
-        {
-             color = new Color32(255, 255, 255, 255);
-            SelectedSlot.FrameImg.color = color;
-            SelectedSlot = null;
+            SellBttn.SetActive(true);
         }
         else
         {
-            color = new Color32(255, 255, 255, 255);
-            SelectedSlot.FrameImg.color = color;
-            SelectedSlot = slot;
-            color = new Color32(255, 0, 135, 255);
-            slot.FrameImg.color = color;
-
-            SellBttn.SetActive(true);
-            if (SelectedSlot.ReturnItem().Item_Type == ItemType.장비)
-            {
-                EnchantBttn.SetActive(true);
-            }
+            SelectedCurrentSlot = null;
         }
-        
+       
 
-        
+    }
+    public void CancelSelectSlot()
+    {
+        if(SelectedCurrentSlot != null)
+        {
+            color = new Color32(255, 255, 255, 255);
+            SelectedCurrentSlot.FrameImg.color = color;
+            
+        }
+        EnchantBttn.SetActive(false);
+        SellBttn.SetActive(false);
+
     }
     public void OpenStarpos()
     {
-        if(SelectedSlot!=null)
+        if(SelectedCurrentSlot != null)
         {
             StarposContent.gameObject.SetActive(true);
-            StarposContent.GetItem(SelectedSlot.ReturnItem());
+            StarposContent.GetItem(SelectedCurrentSlot.ReturnItem());
 
         }
     }
     public void GetItem(Item item)
     {
         InventoryItemList.Add(item);
-
-        GameObject newslot =ObjectPooling.Instance.CreatePoolObj(slotQueue, Content, SlotPrefab);
+        GameObject newslot =ObjectPooling.Instance.GetPoolObj(slotQueue, Content, SlotPrefab);
         newslot.GetComponent<InventorySlot>().getItem(item);
         newslot.SetActive(true);
     }
+  
     public void RemoveItem(Item item)
     {
         InventoryItemList.Remove(item);
     }
+    /*
     private void Reset()
     {
         for(int i=0;i< slotQueue.Count;i++)
@@ -104,7 +109,7 @@ public class Inventory : MonoBehaviour
             ObjectPooling.Instance.ReturnPoolObj(slotQueue, Content, slotQueue.Peek());
         }
     }
-  
+  */
   
     public void ShowEquip()
     {

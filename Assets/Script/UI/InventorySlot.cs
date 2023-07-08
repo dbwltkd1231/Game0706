@@ -9,6 +9,8 @@ public class InventorySlot : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI ItemName;
     [SerializeField]
+    public TextMeshProUGUI Starpos;
+    [SerializeField]
     Image ItemImg;
     [SerializeField]
     public Image FrameImg;
@@ -19,6 +21,7 @@ public class InventorySlot : MonoBehaviour
     {
         myItem = newItem;
         ItemName.text = myItem.Item_Name;
+        Starpos.text = "+"+myItem.Item_Starpos;
         ItemImg.sprite = myItem.Item_Sprite;
     }
     public Item ReturnItem()

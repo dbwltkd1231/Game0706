@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4239f6928077445901cda925d1aa58, type: 3}
+  m_Name: Pico
+  m_EditorClassIdentifier: 
+  CharacterPrefab: {fileID: -9127871824097293524, guid: 6e485995097ad8843afc23ec559cb1d5, type: 3}
+  LobyImage: {fileID: 21300000, guid: e324feec5e5bbfa499862cb303d4aa68, type: 3}
+  ID: 1
