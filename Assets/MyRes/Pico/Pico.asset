@@ -14,4 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterPrefab: {fileID: -9127871824097293524, guid: 6e485995097ad8843afc23ec559cb1d5, type: 3}
   LobyImage: {fileID: 21300000, guid: e324feec5e5bbfa499862cb303d4aa68, type: 3}
-  ID: 1
+  ID: 101
+  Name: 
+  Level: 0
+  ATT: 0
+  DEF: 0
+  MaxHp: 0
+  Crt: 0
+  Grade: 0

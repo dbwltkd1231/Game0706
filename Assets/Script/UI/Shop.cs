@@ -83,21 +83,26 @@ public class Shop : MonoBehaviour
             {
                 break;
             }
-            
-            Item newItem = new Item();
+
+            Item newItem = SetItemDetail((ItemDetailType)(Enum.Parse(typeof(ItemDetailType), data[i]["세부타입"].ToString())));
             newItem.Item_ID = (int)data[i]["ID"];
             newItem.Item_Name = data[i]["이름"].ToString();
             newItem.Item_Type = (ItemType)(Enum.Parse(typeof(ItemType), data[i]["타입"].ToString()));
             newItem.Item_DetailType = (ItemDetailType)(Enum.Parse(typeof(ItemDetailType), data[i]["세부타입"].ToString()));
             newItem.Item_Sprite_Path = data[i]["이미지"].ToString();
             newItem.Item_Sprite = Resources.Load<Sprite>(newItem.Item_Sprite_Path);
-            newItem.Item_Stat = (int)data[i]["스탯"];
+
+            newItem.Item_Att = (int)data[i]["공격력"];
+            newItem.Item_Def = (int)data[i]["방어력"];
+            newItem.Item_Hp = (int)data[i]["체력"];
+            newItem.Item_Crt = (int)data[i]["크리티컬확률"];
+
             newItem.Item_Cost = (int)data[i]["가격"];
             newItem.Item_SetNum = (int)data[i]["세트번호"];
             newItem.Item_Cost = (int)data[i]["가격"];
             newItem.Item_Starpos = (int)data[i]["강화수치"];
             newItem.Item_ReqLv = (int)data[i]["요구레벨"];
-            newItem.Item_Des = data[i]["설명"].ToString();
+            //newItem.Item_Des = data[i]["설명"].ToString();
            
             if(newItem.Item_Type.ToString()=="장비")
             {
@@ -107,9 +112,51 @@ public class Shop : MonoBehaviour
             {
                 AccItemList.Add(newItem);
             }
-
-
         }
 
     }
+    Item SetItemDetail(ItemDetailType type)
+    {
+        if (type == ItemDetailType.Armor)
+        {
+            Armor item = new Armor();
+            return item;
+        }
+        else if (type == ItemDetailType.Pants)
+        {
+            Pants item = new Pants();
+            return item;
+        }
+        else if (type == ItemDetailType.Hat)
+        {
+            Hat item = new Hat();
+            return item;
+        }
+        else if (type == ItemDetailType.Earrings)
+        {
+            Earrings item = new Earrings();
+            return item;
+        }
+        else if (type == ItemDetailType.Belt)
+        {
+            Belt item = new Belt();
+            return item;
+        }
+        else if (type == ItemDetailType.Ring)
+        {
+            Ring item = new Ring();
+            return item;
+        }
+        else if (type == ItemDetailType.Bracelet)
+        {
+            Bracelet item = new Bracelet();
+            return item;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
 }

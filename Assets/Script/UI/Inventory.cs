@@ -8,7 +8,7 @@ using static UnityEditor.Progress;
 public class Inventory : MonoBehaviour
 {
     public static Inventory Instance;
-    public List<Item> InventoryItemList;
+    
     public GameObject SlotPrefab;
     public InventorySlot SelectedCurrentSlot;
 
@@ -25,7 +25,7 @@ public class Inventory : MonoBehaviour
 
     UnityEngine.Color color;
     Queue<GameObject> slotQueue;
-
+    List<GameObject> slotObj;
     private void Awake()
     {
         if(Instance==null)
@@ -91,34 +91,29 @@ public class Inventory : MonoBehaviour
     }
     public void GetItem(Item item)
     {
-        InventoryItemList.Add(item);
+        Player.Instance.InventoryItemList.Add(item);
         GameObject newslot =ObjectPooling.Instance.GetPoolObj(slotQueue, Content, SlotPrefab);
         newslot.GetComponent<InventorySlot>().getItem(item);
         newslot.SetActive(true);
+        slotObj.Add(newslot);
     }
   
     public void RemoveItem(Item item)
     {
-        InventoryItemList.Remove(item);
+        Player.Instance.InventoryItemList.Remove(item);
+        ObjectPooling.Instance.ReturnPoolObj(slotQueue, Content, slotObj.Find(x=>x.GetComponent<InventorySlot>().ReturnItem()==item).gameObject);
+        slotObj.Remove(slotObj.Find(x => x.GetComponent<InventorySlot>().ReturnItem() == item).gameObject);
     }
-    /*
-    private void Reset()
-    {
-        for(int i=0;i< slotQueue.Count;i++)
-        {
-            ObjectPooling.Instance.ReturnPoolObj(slotQueue, Content, slotQueue.Peek());
-        }
-    }
-  */
+
   
     public void ShowEquip()
     {
-        for (int i = 0; i < InventoryItemList.Count; i++)
+        for (int i = 0; i < Player.Instance.InventoryItemList.Count; i++)
         {
-            if (InventoryItemList[i].Item_Type==ItemType.장비)
+            if (Player.Instance.InventoryItemList[i].Item_Type==ItemType.장비)
             {
                 GameObject newslot =ObjectPooling.Instance.GetPoolObj(slotQueue, Content, SlotPrefab);
-                newslot.GetComponent<InventorySlot>().getItem(InventoryItemList[i]);
+                newslot.GetComponent<InventorySlot>().getItem(Player.Instance.InventoryItemList[i]);
             }
         }
     }
@@ -126,12 +121,9 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         slotQueue = ObjectPooling.Instance.CreateQueue();
-        InventoryItemList = new List<Item>();
-        
+        slotObj = new List<GameObject>();
+
+
     }
 
-    void ColorChange(Image img)
-    {
-       
-    }
 }
