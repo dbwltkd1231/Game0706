@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class Character : ScriptableObject
 {
     public LobyCharacter CharacterPrefab;
+    public PlayableCharacter PlayableCharacterPrefab;
     public Sprite LobyImage;
+    public Skill[] skills;
     public int ID;
 
     public string Name;

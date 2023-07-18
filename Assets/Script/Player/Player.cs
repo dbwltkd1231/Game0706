@@ -17,8 +17,10 @@ public class Player : MonoBehaviour
     LobyManager lobymanager;
 
 
+
+
     public List<Item> InventoryItemList;
-   
+    public List<PlayableCharacter> PlayabeCharacterList;
     private void Awake()
     {
         if (Instance == null)
@@ -39,6 +41,7 @@ public class Player : MonoBehaviour
     public void init()
     {
         InventoryItemList = new List<Item>();
+        PlayabeCharacterList = new List<PlayableCharacter>();
         //임시세팅
         ReadCharacterData(100, 3, 0);
         ReadCharacterData(101, 7, 1);
@@ -85,6 +88,15 @@ public class Player : MonoBehaviour
             }
           
 
+        }
+    }
+
+    void AdventureInit()
+    {
+        for(int i=0;i< MyCharacters.Length;i++)
+        {
+            GameObject playablecharacter = Instantiate(MyCharacters[i].PlayableCharacterPrefab.gameObject);
+            PlayabeCharacterList.Add(playablecharacter.GetComponent<PlayableCharacter>());
         }
     }
 
